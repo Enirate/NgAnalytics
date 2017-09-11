@@ -9,6 +9,9 @@ import { GoogleAnalyticsService } from '../google-analytics.service';
 })
 export class HomeComponent implements OnInit {
 
+  //class property that will enable or disable our button
+  btnIsDisabled:boolean = false;
+
   constructor(private router: Router, private googleAnalyticsService: GoogleAnalyticsService) { }
 
   ngOnInit() {
@@ -16,8 +19,16 @@ export class HomeComponent implements OnInit {
 
   knowMore(){
     this.router.navigateByUrl('/about');
-    this.googleAnalyticsService.registerEvent("testCategory", "click on About", "testLabel", 10)
+    this.googleAnalyticsService.registerEvent("testCategory", "click on About", "testLabel", 10);
 
+  }
+
+  enableButton(){
+    if(confirm("Are you sure you want to disable this button?"))
+    {
+      this.btnIsDisabled = true;
+      this.googleAnalyticsService.registerEvent("mouseEnterCategory", "mouse over action", "testLabel", 50)
+    }
   }
 
 }
